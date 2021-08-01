@@ -1,0 +1,84 @@
+.employee-logo img{
+    width:100px;
+    border-radius: 50px;
+    height:100px;
+    float: 33.33%;
+    
+    
+}
+
+
+.employee{
+    display:flex;
+    width: 300px;
+    border: 1px solid rgb(83, 4, 10);
+    padding: 10px;
+    margin: 10px;
+    float: left;
+    background-color: wheat;
+   
+}
+
+.employee-details{
+    display:flex;
+    flex-direction: column;
+    margin: 10px;
+        
+    
+}
+
+.NavBar {
+    background-color: rgb(75, 16, 212);
+    width:100%;
+    height:80px;
+    font-family: Arial, Helvetica, sans-serif;
+    display:flex;
+}
+
+.NavBar .leftSide {
+    display:flex;
+    flex:50px;
+    align-items: center;
+    
+    
+}
+
+.NavBar .leftSide .links {
+   max-height: 80px;
+    
+}
+
+.NavBar .leftSide .links a{
+    text-decoration: none;
+    color: white;
+    font-size: 25px;
+    margin-left: 15px;
+    padding: 20px;
+    
+}
+
+.NavBar .leftSide .dropDown{
+    float: right;
+    padding: 5px;
+}
+
+.NavBar .rightSide {
+    display: flex;
+    flex:50px;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 25px;
+   
+}
+
+.rightSide input{
+    padding: 5px;
+    width: 220px;
+    height: 30px;
+    border: none;
+    border-radius: 4px;
+    color: black;
+}
+
+
+
