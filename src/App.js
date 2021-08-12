@@ -1,10 +1,16 @@
 
 import Counter from './count';
 import Button from './button';
-import { useState } from "react";
+import React, { useState, useEffect } from 'react';
 import Employee from './employee';
 import Navbar from './Navigation';
 import Search1 from './Search1';
+import Login from './Login';
+import withLogin from './HOC';
+import Images from './Images';
+
+
+
 
 
 
@@ -17,100 +23,106 @@ var employees = [
 
 ];
 
+const adminUser = {
+  email : "ravi@admin.com",
+  password : "r123456"
+}
+
 
 
 function App() {
 
   const [searchTerm, setSearchTerm] = useState("");
   const [dropDownID, setdropDownID] = useState("");
+  const [filterEmployee, setFilterEmployee] = useState([]);
+  const[name, setName] = useState()
+  const[password, setPassword] = useState()
 
-  
-  const searchHandler = (searchText,dropDownSelect) => {
-     setSearchTerm(searchText);
-     setdropDownID(dropDownSelect);
-    //  updateEmployee1(searchTerm);
-     
+  const handlerLogin = (name, password) => {
+    setName(name);
+    setPassword(password);
   }
 
 
-  const dropDownHandler = (dropDownID) => {
-    setdropDownID(dropDownID);
+
+  const searchHandler = (searchText, dropDownSelect) => {
+    setSearchTerm(searchText);
+    setdropDownID(dropDownSelect);
+    //  updateEmployee1(searchTerm);
+
+  }
+  
+  const textSearchFilter = () =>{
+    return employees.filter((employee) =>{
+      if(!dropDownID)
+      return employee;
+      const input = (dropDownID == "Name") ? employee[dropDownID].toLowerCase() : employee[dropDownID];
+      if(input == searchTerm.toLowerCase()){
+        return employee;
+      }   
+    })
+  }
+
+  const loingDetails = () => {
+      if(name=="ravi@admin.com" && password=="r123456"){
+      return true;
+      }else{
+        return false;
+      }
+  }
+
+
+  useEffect(() => {
+           
+      const search_filtered = textSearchFilter()    
+      
+    // const result = search_filtered.length ? search_filtered : employees
+    setFilterEmployee(search_filtered);
+       
+  },[searchTerm, dropDownID])
+
+
+  useEffect(() => {
+           
+    const verifyLogin = loingDetails()  
     
- }
-
-//   const updateEmployee1 = (filteredEmployee) => {
-//     { <div className="search-container">
-//     {employees.filter(employee =>
-//       employee.toLowerCase == searchTerm.toLowerCase)
-//       .map((filteredEmp, key) => {
-//         <Employee
-//           key={"emp"} details={filteredEmp}
-//         />
-//       })
-          
-//     }
-//   </div>} 
+    console.log(verifyLogin);
     
-//  }
-
-
-
+  
+     
+},[name, password])
 
 
   return (
     <div className="App">
       <header className="App-header">
-
       </header>
-
-
-
-      <div className="navbar-details">
-        <Navbar searchHandler={searchHandler} dropDownHandler={dropDownHandler} />
+      {/* <div className="navbar-details">
+        <Navbar searchHandler={searchHandler}/>
         
-      </div>
-      
+      </div>  */}
 
-      {/* <div className="employee-container">
-        {employees.map((employee, key) =>
+      <div className="login-details">
+       <Login handlerLogin={handlerLogin}/>
+      </div>  
 
-          <Employee
-            key={"emp"} details={employee}
-            //term={searchTerm}
-          />          
-        )}
 
-      </div> */}
+      {/* <div className="login-details">
+       <Login handlerLogin={handlerLogin}/>
+      </div>   */}
 
       
 
 
 
-
-
-      <div className="search-container">
-        {employees.filter((employee) =>{
-          if(searchTerm === ""){
-            return employee;
-          } else if (dropDownID=="employeeID" && employee.id.toLowerCase().includes(searchTerm.toLowerCase())) {
-            return employee;
-          } else if (dropDownID=="employeeName" && employee.Name.toLowerCase().includes(searchTerm.toLowerCase())) {
-            return employee;
-          } else if (dropDownID=="yearOfJoining" && employee.YearOfJoining.toLowerCase().includes(searchTerm.toLowerCase())) {
-          return employee;
-        }
-
-        }).map((employee, index) =>
-
+      <div className="search-container">           
+        
+        {filterEmployee.map((employee) => 
           <Employee
-            key={"emp"} details={employee}
-            
-          />
+            key={employee.id} details={employee}/>
         )}
-
       </div>
-
-     
+    
     </div>
   );
 

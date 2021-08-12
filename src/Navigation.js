@@ -1,25 +1,25 @@
-import React from "react";
+import React  from "react";
 import './card.css';
 import Employee from "./employee";
 import { useState } from 'react';
+import withLogin from "./HOC";
 
 function Navbar(props) {
 
-   const [searchTerm, setSearchTerm] = useState(); 
-   const [dropDownID, setdropDownID] = useState("");
+   const [searchText, setSearchTerm] = useState(); 
+   const [dropDownSelect, setdropDownID] = useState("");
 
    const setSearchTerm1= ((e) =>{
         setSearchTerm(e.target.value);
         
    })
 
-   const submitHandler = (searchEmployee) =>{
-        props.searchHandler(searchTerm, dropDownID)
+   const submitHandler = () =>{
+        props.searchHandler(searchText, dropDownSelect)
       
    }
 
    const setSearchDropdown= ((e) =>{
-       console.log(e.target.value);
     setdropDownID(e.target.value);
     
     
@@ -34,20 +34,21 @@ function Navbar(props) {
                     <a href="/features">Features</a>
                     <a href="/pricing">Pricing</a>
                     <div className="dropDown">
-                    <select  value= {dropDownID} onChange={setSearchDropdown}>
-                        <option value="employeeID">Employee Id</option>
-                        <option value="employeeName">Employee Name</option>
-                        <option value="yearOfJoining">Year of Joining</option>
+                    <select  value= {dropDownSelect} onChange={setSearchDropdown}>
+                        <option> -- select an option -- </option>
+                        <option value="id">Employee Id</option>
+                        <option value="Name">Employee Name</option>
+                        <option value="YearOfJoining">Year of Joining</option>
                     </select>
                     </div>
                 </div>
             </div>
             <div className="rightSide">
-                <input type="text" placeholder="Search" value={searchTerm}  onChange= {setSearchTerm1} />
+                <input type="text" placeholder="Search" value={searchText}  onChange= {setSearchTerm1} />
 
                 <button onClick={submitHandler}>Search</button>
             </div>
         </div>
     )
 }
-export default Navbar;
+export default withLogin(Navbar);
