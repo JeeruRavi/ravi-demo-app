@@ -1,5 +1,6 @@
 import React from "react";
 import './card.css'
+import Login from './Login'
 
 function Employee({details}) 
 {
@@ -41,4 +42,4 @@ function Employee({details})
 // )
 
 
-export default Employee;
+export default Login(Employee);
